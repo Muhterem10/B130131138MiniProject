@@ -36,6 +36,7 @@ public class LoginPage {
 
     public static void start() {
         Scanner input = new Scanner(System.in);
+        UserService service=new UserService();
         int select;
          do {
              System.out.println("=== WELCOME TO MY WEBSITE! ===");
@@ -49,8 +50,10 @@ public class LoginPage {
              switch (select) {
                  case 1:
                      //register
+                     service.register();
                      break;
                  case 2:
+                     service.login();
                      //login
                      break;
                  case 0:

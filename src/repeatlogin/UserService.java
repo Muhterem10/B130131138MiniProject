@@ -25,17 +25,17 @@ public class UserService {
    public  static boolean validateEmail(String email) {
        boolean isValid;
        boolean isExistSpace=email.contains(" ");
-       boolean isExistAt=email.contains("@");
+       boolean isContainsAt=email.contains("@");
        if (isExistSpace){
           System.out.println("Email Bosluk icermemeli");
           isValid=false;
-       } else if (!isExistAt) {
+       } else if (!isContainsAt) {
           System.out.println("Email '@' sembolu icermeli");
           isValid=false;
        }else{
-     String firstPart= email =email.split("@")[0];
-     String secondPart= email =email.split("@")[1];
-     boolean valid=firstPart.replaceAll("[a-zA-Z_.-]","").isEmpty();
+     String firstPart= email.split("@")[0];
+     String secondPart= email.split("@")[1];
+     boolean valid=firstPart.replaceAll("[a-zA-Z0-9_.-]","").isEmpty();
      boolean checkStart=valid&& firstPart.length()>0;
      boolean checkEnd=secondPart.equals("gmail.com")||secondPart.equals("yaho.com")||secondPart.equals("hotmail.com");
      if (!checkStart){
@@ -103,7 +103,7 @@ public class UserService {
             if (existsUsername){
                 System.out.println("Bu usernname kullanilmis farkli username kullan");
             }
-        }while (!existsUsername);
+        }while (existsUsername);
 
 return username;
     }
@@ -114,8 +114,8 @@ return username;
         do {
             System.out.println("Emailinizi giriniz:");
             email = input.nextLine();//bu username daha önce kullanılmış mı?
-            existEmail=validateEmail(email);
-            isValid=getUser(email)!=null;
+            existEmail=getUser(email)!=null;
+            isValid=validateEmail(email);
             if (existEmail){
                 System.out.println("Bu mail kayitli farkli mail deneyiniz");
                 isValid=false;
@@ -135,6 +135,28 @@ return email;
 
      }while (!isValidPass);
         return passw;
+     }
+     public void login(){
+         System.out.println("Kullanici adi veya Email giriniz");
+         String userNameOrEmail =input.nextLine();
+         if (getUser(userNameOrEmail)!=null){
+             User user = getUser(userNameOrEmail);
+             boolean isWrong=true;
+             while (isWrong){
+                 System.out.println("Sifrenizi giriniz");
+                 String password =input.nextLine();
+                 if (user.getPassword().equals(password)){
+                     System.out.println("Sisteme giris yaaptiniz");
+                     isWrong=false;
+                 }else {
+                     System.out.println("Sifreniz yanlis tekrar deneyiniz");
+                 }
+
+             }
+         }else {
+             System.out.println("Sistemde kayitli kullanici adi veya email bulunamadi");
+             System.out.println("Üyeyseniz bilgilerinizi kontrol ederek tekrar deneyiniz, üye değilseniz lütfen üye olunuz.");
+         }
      }
 
 }
