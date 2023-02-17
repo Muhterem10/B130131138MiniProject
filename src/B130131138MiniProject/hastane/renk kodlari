@@ -1,0 +1,5 @@
+Thread.sleep(delay);
+Thread.sleep(5000);
+System.out.println("\033[34m             ***** **** *** ** * Odemeniz basari ile gerceklestirildi * ** *** **** ***** \033[0m");//mavi
+System.out.println("\033[32m Lutfen 12 haneli kart numaranizi giriniz \033[0m");//yesil
+System.out.println("\033[33m ********************************************** \033[0m");//sari
